@@ -9,14 +9,17 @@ jobs:
           key: dependency-cache-{{ checksum "package.json" }}
       - run:
           name: Setup Dependencies
-          command: npm install
+          command: yarn install
       - save_cache: # special step to save the dependency cache
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
             - ./node_modules
       - run: # run tests
-          name: Run Test and Coverage
-          command: npm test
+          name: Test
+          command: yarn test
       - run:
-          name: Run Linter
-          command: npm run lint
+          name: Test Coverage
+          command: yarn test:coverage
+      - run:
+          name: Linter
+          command: yarn run lint
